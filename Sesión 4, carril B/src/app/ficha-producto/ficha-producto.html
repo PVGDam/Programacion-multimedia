@@ -1,7 +1,6 @@
-<div>
+<div [class.agotado]="!disponible">
     <h3>{{nombre}}</h3>
-<p>{{precio}} €</p>
-<img [src]="imagenUrl" [alt]="">
-<button [disabled]="!disponible">Compralo</button>
-
+    <p>{{precio}} €</p>
+    <img [src]="imagenUrl" [alt]="">
+    <button [disabled]="!disponible">Compralo</button>
 </div>
