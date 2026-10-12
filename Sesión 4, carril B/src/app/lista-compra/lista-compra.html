@@ -1,0 +1,7 @@
+<p>Buscador:</p>
+<input #campo type="text" (keyup.enter)="anadir(campo.value, campo)">
+<button (click)="anadir(campo.value, campo)">Añadir</button>
+
+<h3>Lista</h3>
+<p>{{ lista.join('. ') }}</p>
+<button (click)="vaciar()">Vaciar lista</button>
