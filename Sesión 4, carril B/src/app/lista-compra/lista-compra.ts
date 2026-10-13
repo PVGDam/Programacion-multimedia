@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   imports: [],
@@ -6,20 +6,46 @@ import { Component } from '@angular/core';
   styleUrl: './lista-compra.css',
   templateUrl: './lista-compra.html',
 })
-
-export class ListaCompra {
+export class ListaCompra implements OnInit {
   lista = ['leche', 'pan'];
 
-  anadir(valor: string, campo: HTMLInputElement): void {
-    const producto = valor.trim();
+  readonly limite = 20;
+  readonly maximo = 5;
+  readonly textoListaVacia = 'La lista está vacía';
 
-    if (producto && this.lista.length < 5) {
-      this.lista.push(producto);
-      campo.value = '';
-    }
+  nuevoArticulo = '';
+
+  get contador(): number {
+    return this.nuevoArticulo.length;
   }
 
-  vaciar(): void {
-    this.lista = [];
+  get puedeAnadir(): boolean {
+    return this.nuevoArticulo.trim().length > 0
+      && this.contador <= this.limite
+      && this.lista.length < this.maximo;
+  }
+
+  ngOnInit(): void {
+    console.log(this.lista.length);
+  }
+
+  actualizarArticulo(evento: Event): void {
+    const campo = evento.target as HTMLInputElement;
+    this.nuevoArticulo = campo.value;
+  }
+
+  anadir(): void {
+    if (!this.puedeAnadir) {
+      return;
+    }
+
+    this.lista.push(this.nuevoArticulo.trim());
+    this.nuevoArticulo = '';
+  }
+
+  vaciar(evento: MouseEvent): void {
+    if (evento.shiftKey) {
+      this.lista = [];
+    }
   }
 }

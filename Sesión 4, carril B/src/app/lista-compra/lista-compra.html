@@ -1,7 +1,39 @@
-<p>Buscador:</p>
-<input #campo type="text" (keyup.enter)="anadir(campo.value, campo)">
-<button (click)="anadir(campo.value, campo)">Añadir</button>
+<div [class.completo]="lista.length == 5">
+    <p>Buscador:</p>
 
-<h3>Lista</h3>
-<p>{{ lista.join('. ') }}</p>
-<button (click)="vaciar()">Vaciar lista</button>
+<input
+  type="text"
+  [value]="nuevoArticulo"
+  [class.error]="contador > limite"
+  (input)="actualizarArticulo($event)"
+  (keyup.enter)="anadir()"
+>
+
+<button
+  (click)="anadir()"
+  [disabled]="!puedeAnadir"
+>
+  Añadir
+</button>
+
+<p [class.error]="contador > limite">
+  Caracteres: {{ contador }} / {{ limite }}
+</p>
+
+<section [class.llena]="lista.length === maximo">
+  <h3>Artículos: {{ lista.length }} de {{ maximo }}</h3>
+
+  <p [class.vacia]="lista.length === 0">
+    {{ lista.length ? lista.join(' · ') : textoListaVacia }}
+  </p>
+</section>
+
+<button
+  (click)="vaciar($event)"
+  [disabled]="lista.length === 0"
+>
+  Vaciar lista
+</button>
+<small> Mantén Mayús al pulsar para vaciarla.</small>
+
+</div>

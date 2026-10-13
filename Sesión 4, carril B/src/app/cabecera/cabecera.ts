@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class Cabecera {
 
-  titulo = "Listador P";
-  frase = "El mejor listador del P mercado"
+  titulo = "Listador listo";
+  frase = "El mejor listador listo (que no inteligente) del mercado"
 }
